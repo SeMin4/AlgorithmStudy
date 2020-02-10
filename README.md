@@ -11,7 +11,7 @@ c++언어의 특성상  시간초과의 문제가 발생. cin도 c언어의 scan
 
 ## B_1406(시간초과)
 string을 이용하여 문제를 풀이하였을 경우 모든 string 값을 수정하기 때문에 시간이 오래 걸린다. 따라서 list를 이용한다. string 값을 받고 
-<pre><code> list\<char> ediotr(s.begin(),s.end());</code></pre>
+<pre><code> list &ltchar> ediotr(s.begin(),s.end());</code></pre>
 를 이용하여 먼저 문자열을 리스트로 수정한다.
 s.end(), s.begin()은 각각 반환형이 iterator 포인터를 반환한다. s.end() 의경우
 <pre><code>for(string::iterator iter = str1.begin(); iter != str1.end(); ++iter){
