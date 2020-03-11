@@ -72,3 +72,124 @@ for(int i = 2; i<loop_size; ++i){
 ios_base::sync_with_stdio(0);
 cin.tie(0);
 ```
+
+<br>
+<br>
+<br>
+<br>
+
+## B_11052 (Dynamic Programming)
+```c++
+#include <iostream>
+#include <algorithm>
+int dp[1001];//전역변수로 배열을 선언
+using namespace std;
+int main(){
+    //아래 두줄은 빠른 io를 위해서 사용
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int size;
+    cin >> size;
+    int *arr = new int[size + 1];
+    arr[0] = 0;
+    for(int i = 1; i<=size; ++i){
+        cin >> arr[i];
+    }
+    for(int i = 1; i<=size; ++i){
+        for(int j = 1; j<=i; ++j){
+            //dp를 통해 n개의 카드를 살때 비용의 최대를 구하는 과정
+            //dp[2] = max(dp[2], dp[2-1] + arr[1]);
+            //과 같은 방식을 통해서 바로 전부분과 지금 해당하는 부분의 합을 통해 최대값을 알아 내는 방식.
+            dp[i] = max(dp[i], dp[i-j]+ arr[j]);
+        }
+
+    }
+    cout << dp[size];
+    return 0;
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## B_15990 (Dynamic Programming)
+```c++
+//
+// Created by SeMin on 2020-03-09.
+//
+
+#include <iostream>
+using namespace std;
+long long dp[100001][4];
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int size;
+    cin >> size;
+    //dp[n][?] 의 의미는 n이라는 숫자를 만들기 위해 ?라는 숫자로 끝나는 경우의 횟수를 의미
+    dp[1][1] = 1;
+    dp[1][2] = 0;
+    dp[1][3] = 0;
+    dp[2][1] = 0;
+    dp[2][2] = 1;
+    dp[2][3] = 0;
+    dp[3][1] = 1;
+    dp[3][2] = 1;
+    dp[3][3] = 1;
+    for(int i = 4; i<=100000; ++i){
+        //반복문을 돌면서 그 끝부분에 해당하는 숫자만큼 빼주고 그부분을 더하면 되므로 dp배열을 참조
+        dp[i][1] = (dp[i-1][2] + dp[i-1][3]) % 1000000009 ;
+        dp[i][2] = (dp[i-2][1] + dp[i-2][3]) % 1000000009;
+        dp[i][3] = (dp[i-3][1] + dp[i-3][2]) % 1000000009;
+    }
+    for(int i = 0; i<size; ++i){
+        int tmp;
+        cin >> tmp;
+        cout << (dp[tmp][1] + dp[tmp][2] + dp[tmp][3] ) % 1000000009 <<'\n';
+    }
+
+    return 0;
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## B_11053 (Dynamic Programming)
+```c++
+#include <iostream>
+int dp[1001];
+int arr[1001];
+using namespace std;
+int main(){
+    int size;
+    int length = 0;
+    cin >> size;
+    //입력을 받는 과정
+    for(int i = 1; i<=size; ++i){
+        cin >> arr[i];
+    }
+
+    dp[1] = 1;
+    //현재 값을 중심으로 이전 값들중 자기 자신보다 작은 값들 만 비교
+    for(int i = 1; i<=size; ++i){
+        int max = dp[0];
+        for(int j= 0; j<=i; ++j){
+
+            if(arr[i]> arr[j]){//이 if문이 자기 자신보다 작은 값들만 비교 하는 부분
+                if(max < dp[j])//그중 최대 length길이를 구하기
+                    max = dp[j];
+            }
+        }
+        dp[i] = max + 1;//그 최대 length 길이의 +1
+        if(length < dp[i])//최대 length길이들 중에서 그중 최대값 저장해놓는 부분.
+            length = dp[i];
+    }
+    cout << length << '\n';
+    return 0;
+}
+```
