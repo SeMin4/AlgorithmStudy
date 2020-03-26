@@ -106,6 +106,10 @@ void Test( int nNum1 )
 	int nResult = nNum1;
 }
 ```
+<br>
+<br>
+<br>
+<br>
 
 ## B_11050 (이항계수 점화식 dp를 이용하여 풀기)
 ```c++
@@ -133,4 +137,196 @@ int main(){
     cout << dp[n][k];
 
 }
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## B_1181 (#include &lt;algorithm> 안에 있는 find 함수)
+```c++
+//
+// Created by SeMin on 2020-03-12.
+//
+
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+bool myRank(string &a, string &b){
+    if(a.length() == b.length())
+        return a < b;
+
+    return a.length() < b.length();
+}
+int main(){
+    int test_case;
+    cin >> test_case;
+    vector<string> arr;
+    for(int i = 0; i< test_case; ++i){
+        string tmp;
+        cin >> tmp;
+        //find 함수를 잘 알아둘것 algortihm STL 의 함수로 str.find와는 다르다. 반복자를 리턴하고 만약에 찾는 값이 없는 경우에는 end를 리턴한다.
+        if(find(arr.begin(), arr.end(), tmp) == arr.end())
+            arr.push_back(tmp);
+    }
+    sort(arr.begin(), arr.end(), myRank);
+    for(int i = 0; i< arr.size(); ++i){
+        cout << arr[i]<<'\n';
+    }
+    return 0;
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## C++ 다형성(Polymorphism)
+c++은 다형성을 위해서 함수를 오버로딩(Overloading)에 의해서 사용하기도 하지만 template을 이용할 수도 있다
+
+### 함수 템플릿(Function Template)
+- 함수를 만들어 낼때, 함수의 기능은 명확하지만 자료형을 모호하게 두는 것.
+
+```c++
+int sum(int a, int b){
+    return a + b;
+}
+double sum(double a, double b){
+    return a + b;
+}
+```
+
+```c++
+template <typename T>
+T sum(T a, T b){
+    return a + b;
+}
+```
+
+``` c++
+template <class T1, class T2>
+void printAll(T1 a, T2 b){
+    cout << a;
+    cout << b;
+    cout << a + b;
+}
+```
+
+- 호출시
+```c++
+sum<int>(a + b);
+sum<double>(a + b);
+```
+- 함수 호출할때 명확하게 어떤 자료형을 쓸건지 < >안에 표시해주는게 좋다. 하지만 template으로 사용하는 변수가 2개 이상인 경우에는 함수이름 뒤 <> 안에 명확하게 사용하지 않는다.
+- 그때에는 컴파일러가 스스로 자료형을 판단
+``` c++
+printAll(str1 ,str2);
+printAll(str1, num1);
+````
+
+<br>
+<br>
+<br>
+<br>
+
+## B_10816 (map을 이용한 dictionary 형태의 자료구조)
+```c++
+//
+// Created by SeMin on 2020-03-13.
+//
+
+#include <map>
+#include <iostream>
+using namespace std;
+int main(){
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    map<int, int> arr;
+    int size;
+    cin>> size;
+    for(int i = 0; i<size; ++i){
+        int tmp;
+        cin >> tmp;
+        //키값을 찾는거
+        if(arr.find(tmp)!= arr.end()) {
+            arr[tmp]++;
+        }
+        else{
+            arr[tmp] = 1;
+        }
+    }
+    //map 에 관한 부분으로 잘 알아놓자!! 이터레이터
+    //map은 키값을 기준으로 하여 자동으로 정렬이 된다.
+//    map<int, int>::iterator iter;
+//    for(iter = arr.begin(); iter != arr.end(); ++iter){
+//        cout << iter->first  << ": " << iter->second<< '\n';
+//    }
+    int find_size;
+    cin >> find_size;
+    for(int i = 0; i<find_size; ++i){
+        int tmp;
+        cin >> tmp;
+        if(arr.find(tmp) != arr.end()){
+            cout << arr[tmp] <<' ';
+        }
+        else
+            cout << 0 <<' ';
+    }
+    return 0;
+}
+```
+
+<br>
+<br>
+<br>
+<br>
+
+## c++ (map)
+### Map
+- #inlcude &lt;map>을 적어야 사용이 가능 한 자료구조 
+- key와 value에 쌍으로 저장되는 map
+- 노드 기반으로 이루어져 있는 균형 이진 트리 구조
+- Unique Key로key는 고유한 값이므로 중복이 불가능 하다
+- Ordered한 속성을 가지고 있어 map도 set과 마찬가지로 삽입이 되면서 자동으로 정렬이 됩니다.
+```c++
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+ 
+int main(void){
+    
+    map<int, string> m;
+    
+    m.insert(pair<int, string>(40, "today"));
+    m.insert(pair<int, string>(35, "ms"));
+    m.insert(pair<int, string>(10, "trot"));
+    m.insert(pair<int, string>(90, "2"));
+    m.insert(pair<int, string>(65, "kyungpook"));
+    m.insert(pair<int, string>(20, "National"));
+    m.insert(pair<int, string>(50, "Univ"));
+ 
+    
+    map<int, string>::iterator iter;
+    
+    //접근방법 1  first, second 로 하는 방법을 주의깊게 볼것.
+    for(iter = m.begin(); iter != m.end(); iter++){
+        cout << "[" << iter->first << ", " << iter->second << "]" << " " ;
+    }
+    cout << endl;
+    
+    //접근방법 2 
+    for(iter = m.begin(); iter != m.end(); iter++){
+        cout << "[" << (*iter).first << ", " << (*iter).second << "]" << " " ;
+    }
+    
+    
+    return 0;    
+}
+
 ```
