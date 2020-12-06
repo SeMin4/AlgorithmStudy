@@ -34,35 +34,5 @@ public class B_16287 {
             }
         }
         System.out.println("NO");
-
-//        ArrayList<Sum> arrayList = new ArrayList<>();
-//        for (int i = 0; i < N - 1; i++) {
-//            for (int j = i + 1; j < N; j++) {
-//                arrayList.add(new Sum(arr[i] + arr[j], i, j));
-//            }
-//        }
-//        Collections.sort(arrayList);
-//        int left = 0;
-//        int right = arrayList.size() - 1;
-//        while (left != right){
-//            Sum sumLeft = arrayList.get(left);
-//            Sum sumRight = arrayList.get(right);
-//            if(sumLeft.sum + sumRight.sum == W){
-//                if(sumLeft.idx1 != sumRight.idx1 && sumLeft.idx1 != sumRight.idx2 && sumLeft.idx2 != sumRight.idx1 && sumLeft.idx2 != sumRight.idx2){
-//                    System.out.println("YES");
-//                    return;
-//                }
-//                else{
-//                    left += 1;
-//                }
-//            }
-//            else{
-//                if(sumLeft.sum + sumRight.sum < W){
-//                    left += 1;
-//                }
-//                else  right -=1;
-//            }
-//        }
-//        System.out.println("NO");
     }
 }

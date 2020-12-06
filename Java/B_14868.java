@@ -92,12 +92,6 @@ public class B_14868 {
         int yParent = find(y, parent);
         if(xParent == yParent)
             return false;
-//        if(y > x){
-//            int tmp = y;
-//            y = x;
-//            x = tmp;
-//        }
-//        updateParent(y, parent, xParent);
         parent[yParent] = xParent;
         kCNT += 1;
         if(kCNT == K)
