@@ -31,7 +31,7 @@ class Position implements Comparable<Position>{
         else return 1;
     }
 }
-public class B_9376 {
+public class B_9376{
     static int T, W, H;
     static final int[] dI = {-1, 0, 1, 0};
     static final int[] dJ = {0, 1, 0, -1};
@@ -108,15 +108,14 @@ public class B_9376 {
                     else{
                         result[i][j] = visit[0][i][j] + visit[1][i][j] + visit[2][i][j];
                     }
-                    res = Math.min(result[i][j] , res);
+                    if(result[i][j] >= 0){
+                        res = Math.min(result[i][j] , res);
+                    }
                 }
 
 
             }
         }
-
-
-
         return res;
     }
 }
